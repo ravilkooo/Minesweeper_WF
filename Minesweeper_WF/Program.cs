@@ -17,7 +17,9 @@ namespace Minesweeper_WF
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new MainForm());
+            /*Party party = new Party(0);
+            party.PlayParty();*/
         }
     }
 }

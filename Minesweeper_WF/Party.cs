@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Course_work_3sem
+namespace Minesweeper_WF
 {
     class Party
     {
@@ -68,8 +68,8 @@ namespace Course_work_3sem
                 _ => (int)(0.15 * width * height),
             };
         }
-        //Beginner (8x8, 10 mines), Intermediate (16x16, 40 mines) and Expert (24x24, 99 mines)
-        private static readonly int[,] defSettings = { { 8, 8, 10 }, { 16, 16, 40 }, { 24, 24, 99 } };
+        //Beginner (8x8, 10 mines), Intermediate (16x16, 40 mines) and Expert (30x16, 99 mines)
+        private static readonly int[,] defSettings = { { 9, 9, 10 }, { 16, 16, 40 }, { 30, 16, 99 } };
 
         //ClipMode
         private static sbyte CM(sbyte mode) 
@@ -208,6 +208,8 @@ namespace Course_work_3sem
                 exploredField[i, j] = -6 - exploredField[i, j];
             }
         }
+
+
         public void ShowField()
         {
             Console.WriteLine();
@@ -257,5 +259,6 @@ namespace Course_work_3sem
                 Console.WriteLine(":(");
             }
         }
+
     }
 }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Course_work_3sem
+namespace Minesweeper_WF
 {
     class Bot : Player
     {

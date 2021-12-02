@@ -10,18 +10,26 @@ using System.Windows.Forms;
 
 namespace Minesweeper_WF
 {
-    public partial class MainForm : Form
+    public partial class MainForm : Form, IController
     {
         public MainForm()
         {
             InitializeComponent();
-            var buttonsArr = new CellControl[10, 10];
+            Model = new Party(0);
+            AddView(panelView1);
+
+            //cellsPanel добавление события к нему
+            // При нажатии на Vuew должно вызваться собывтие, которое вызывает изменение модели
+
+
+            ///
+            /*var buttonsArr = new CellView[10, 10];
             for (int i = 0; i < 10; i++)
             {
                 for (int j = 0; j < 10; j++)
                 {
 
-                    buttonsArr[i, j] = new CellControl(i, j);
+                    buttonsArr[i, j] = new CellView(i, j);
                     ((System.ComponentModel.ISupportInitialize)(buttonsArr[i, j])).BeginInit();
                     buttonsArr[i, j].Init();
                     buttonsArr[i, j].MouseEnter += new System.EventHandler(this.pictureBox1_MouseEnter);
@@ -30,10 +38,15 @@ namespace Minesweeper_WF
                     this.cellsPanel.Controls.Add(buttonsArr[i, j]);
                     ((System.ComponentModel.ISupportInitialize)(buttonsArr[i, j])).EndInit();
                 }
-            }
+            }*/
+            ///
         }
-
-
+        public IModel Model { get; set; }
+        public void AddView(IView v)
+        {
+            v.Model = this.Model;
+            Model.Changed += new Action(v.UpdateView);
+        }
 
         private void x19ToolStripMenuItem1_Click(object sender, EventArgs e)
         {
@@ -41,7 +54,7 @@ namespace Minesweeper_WF
         }
         private void pictureBox1_MouseEnter(object sender, EventArgs e)
         {
-            if (((CellControl)((PictureBox)sender)).IsClosed)
+            if (((CellView)((PictureBox)sender)).IsClosed)
             {
                 ((PictureBox)sender).Image = global::Minesweeper_WF.Properties.Resources.hov;
             }
@@ -49,7 +62,7 @@ namespace Minesweeper_WF
 
         private void pictureBox1_MouseLeave(object sender, EventArgs e)
         {
-            if (((CellControl)((PictureBox)sender)).IsClosed)
+            if (((CellView)((PictureBox)sender)).IsClosed)
             {
                 ((PictureBox)sender).Image = global::Minesweeper_WF.Properties.Resources.cl;
             }
@@ -57,10 +70,10 @@ namespace Minesweeper_WF
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
-            if (((CellControl)((PictureBox)sender)).IsClosed)
+            if (((CellView)((PictureBox)sender)).IsClosed)
             {
                 ((PictureBox)sender).Image = global::Minesweeper_WF.Properties.Resources._0;
-                ((CellControl)((PictureBox)sender)).IsClosed = false;
+                ((CellView)((PictureBox)sender)).IsClosed = false;
             }
         }
 

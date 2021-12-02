@@ -49,8 +49,8 @@ namespace Minesweeper_WF
             this.рекордыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.выходToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.cellsPanel = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.panelView1 = new Minesweeper_WF.PanelView();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
@@ -203,23 +203,14 @@ namespace Minesweeper_WF
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
             // 
-            // cellsPanel
-            // 
-            this.cellsPanel.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.cellsPanel.AutoSize = true;
-            this.cellsPanel.Location = new System.Drawing.Point(354, 42);
-            this.cellsPanel.Name = "cellsPanel";
-            this.cellsPanel.Size = new System.Drawing.Size(0, 0);
-            this.cellsPanel.TabIndex = 2;
-            // 
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.AutoSize = true;
             this.tableLayoutPanel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.tableLayoutPanel1.ColumnCount = 1;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Controls.Add(this.cellsPanel, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.pictureBox1, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.panelView1, 0, 1);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 28);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -228,6 +219,16 @@ namespace Minesweeper_WF
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(708, 485);
             this.tableLayoutPanel1.TabIndex = 3;
+            // 
+            // panelView1
+            // 
+            this.panelView1.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.panelView1.AutoSize = true;
+            this.panelView1.Location = new System.Drawing.Point(354, 42);
+            this.panelView1.Model = null;
+            this.panelView1.Name = "panelView1";
+            this.panelView1.Size = new System.Drawing.Size(0, 0);
+            this.panelView1.TabIndex = 2;
             // 
             // MainForm
             // 
@@ -274,8 +275,8 @@ namespace Minesweeper_WF
         private System.Windows.Forms.ToolStripMenuItem рекордыToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem выходToolStripMenuItem;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Panel cellsPanel;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private PanelView panelView1;
     }
 }
 

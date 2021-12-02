@@ -4,12 +4,12 @@ using System.Text;
 
 namespace Minesweeper_WF
 {
-    class Party
+    class Party : IModel
     {
         public DateTime date;
         public sbyte mode;
-        public int width;
-        public int height;
+        int fieldWidth;
+        int fieldHeight;
         public int flagCounter;
         public int bombAmount;
         public DateTime duration;
@@ -19,13 +19,15 @@ namespace Minesweeper_WF
         internal int[,] exploredField;
         //private List<(char, int, int)> history;
         private List<(int, int)> bombCells;
+
+        public event Action Changed;
         public Party(string path) { }
         public Party(sbyte mode, int width, int height, int bombAmount)
         {
             this.date = DateTime.Now;
             this.mode = mode;
-            this.width = width;
-            this.height = height;
+            this.fieldWidth = width;
+            this.fieldHeight = height;
             this.bombAmount = bombAmount;
             this.flagCounter = 0;
             this.duration = new DateTime();
@@ -47,11 +49,12 @@ namespace Minesweeper_WF
             //Players
             this.user = new User();
             this.bot = new Bot();
-
         }
 
         public Party(sbyte mode, int width, int height) : this(mode, width, height, CalcBombAmount(mode, width, height)) {}
         public Party(sbyte mode) : this(mode, defSettings[CM(mode),0], defSettings[CM(mode), 1], defSettings[CM(mode), 2]) {}
+        public int W { get => fieldWidth; }
+        public int H { get => fieldHeight; }
         public void RecoverField() { }
         public void GetMap() { }
         public void SaveParty() { }
@@ -71,7 +74,7 @@ namespace Minesweeper_WF
         //Beginner (8x8, 10 mines), Intermediate (16x16, 40 mines) and Expert (30x16, 99 mines)
         private static readonly int[,] defSettings = { { 9, 9, 10 }, { 16, 16, 40 }, { 30, 16, 99 } };
 
-        //ClipMode
+        //ClipGameMode
         private static sbyte CM(sbyte mode) 
         {
             return (sbyte)(mode < 0 ? 0 : (mode > 2 ? 2 : mode));
@@ -85,7 +88,7 @@ namespace Minesweeper_WF
                 for (int dy = -1; dy < 2; dy++)
                 {
                     int x = i + dx, y = j + dy;
-                    if ((x < 0) || (y < 0) || (x >= width) || (y >= height))
+                    if ((x < 0) || (y < 0) || (x >= fieldWidth) || (y >= fieldHeight))
                     {
                         continue;
                     }
@@ -103,10 +106,10 @@ namespace Minesweeper_WF
             Random rand = new Random();
             for (int i = 0; i < bombAmount; i++)
             {
-                (int, int) b = (rand.Next(width), rand.Next(height));
+                (int, int) b = (rand.Next(fieldWidth), rand.Next(fieldHeight));
                 while (bombCells.Contains(b))
                 {
-                    b = (rand.Next(width), rand.Next(height));
+                    b = (rand.Next(fieldWidth), rand.Next(fieldHeight));
                 }
                 bombCells.Add(b);
             }
@@ -125,9 +128,9 @@ namespace Minesweeper_WF
             {
                 bombField[b.Item1, b.Item2] = -1;
             }
-            for (int i = 0; i < width; i++)
+            for (int i = 0; i < fieldWidth; i++)
             {
-                for (int j = 0; j < height; j++)
+                for (int j = 0; j < fieldHeight; j++)
                 {
                     bombField[i, j] = (bombCells.Contains((i, j)) ? -1 : GetNearBombAmount(i,j));
                 }
@@ -137,9 +140,9 @@ namespace Minesweeper_WF
         private int GetPartyStatus()
         {
             bool hasWon = true;
-            for (int i = 0; i < width; i++)
+            for (int i = 0; i < fieldWidth; i++)
             {
-                for (int j = 0; j < height; j++)
+                for (int j = 0; j < fieldHeight; j++)
                 {
                     if (exploredField[i,j] == -1)
                     {
@@ -169,7 +172,7 @@ namespace Minesweeper_WF
                     for (int dy = -1; dy < 2; dy++)
                     {
                         int x = cell.Item1 + dx, y = cell.Item2 + dy;
-                        if (((x < 0) || (y < 0) || (x >= width) || (y >= height)) || ((dx == 0) && (dy == 0)))
+                        if (((x < 0) || (y < 0) || (x >= fieldWidth) || (y >= fieldHeight)) || ((dx == 0) && (dy == 0)))
                         {
                             continue;
                         }
@@ -184,6 +187,7 @@ namespace Minesweeper_WF
                     }
                 }
             }
+            if (Changed != null) Changed();
         }
 
         public void PutFlag(int i, int j)
@@ -196,6 +200,7 @@ namespace Minesweeper_WF
                 }
                 exploredField[i, j] = -5 - exploredField[i, j];
             }
+            if (Changed != null) Changed();
         }
         public void PutMark(int i, int j)
         {
@@ -207,36 +212,49 @@ namespace Minesweeper_WF
                 }
                 exploredField[i, j] = -6 - exploredField[i, j];
             }
+            if (Changed != null) Changed();
+        }
+        string ConvertIntStatusToStr(int st)
+        {
+            string cell;
+            switch (st)
+            {
+                case -4:
+                    cell = "?";
+                    break;
+                case -3:
+                    cell = "F";
+                    break;
+                case -2:
+                    cell = "#";
+                    break;
+                case -1:
+                    cell = "*";
+                    break;
+                default:
+                    cell = st + "";
+                    break;
+            }
+            return cell;
         }
 
+        public string GetCellStatus(int i, int j)
+        {
+            if ((i < 0 || i >= W) || (j < 0 || j >= H))
+            {
+                return " ";
+            }
+            return ConvertIntStatusToStr(exploredField[i, j]);
+        }
 
         public void ShowField()
         {
             Console.WriteLine();
-            for (int i = 0; i < width; i++)
+            for (int i = 0; i < fieldWidth; i++)
             {
-                for (int j = 0; j < height; j++)
+                for (int j = 0; j < fieldHeight; j++)
                 {
-                    string cell;
-                    switch (exploredField[i,j])
-                    {
-                        case -4:
-                            cell = "?";
-                            break;
-                        case -3:
-                            cell = "F";
-                            break;
-                        case -2:
-                            cell = "#";
-                            break;
-                        case -1:
-                            cell = "*";
-                            break;
-                        default:
-                            cell = exploredField[i, j] + "";
-                            break;
-                    }
-                    Console.Write(cell);
+                    Console.Write(GetCellStatus(i, j));
                 }
                 Console.WriteLine();
             }

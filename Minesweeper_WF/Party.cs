@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Minesweeper_WF
 {
@@ -31,7 +30,7 @@ namespace Minesweeper_WF
             this.bombAmount = bombAmount;
             this.flagCounter = 0;
             this.duration = new DateTime();
-            
+
             //Spawn Bombs
             this.bombCells = new List<(int, int)>();
             SpawnBombs();
@@ -51,16 +50,17 @@ namespace Minesweeper_WF
             this.bot = new Bot();
         }
 
-        public Party(sbyte mode, int width, int height) : this(mode, width, height, CalcBombAmount(mode, width, height)) {}
-        public Party(sbyte mode) : this(mode, defSettings[CM(mode),0], defSettings[CM(mode), 1], defSettings[CM(mode), 2]) {}
+        public Party(sbyte mode, int width, int height) : this(mode, width, height, CalcBombAmount(mode, width, height)) { }
+        public Party(sbyte mode) : this(mode, defSettings[CM(mode), 0], defSettings[CM(mode), 1], defSettings[CM(mode), 2]) { }
         public int W { get => fieldWidth; }
         public int H { get => fieldHeight; }
         public int FlagCounter { get => flagCounter; }
         public int BombAmount { get => bombAmount; }
-        public int Duration { get => (DateTime.Now).Second - date.Second; }
+        public int Duration { get => (int) ((DateTime.Now).Subtract(date)).TotalSeconds ; }
         public void RecoverField() { }
         public void GetMap() { }
         public void SaveParty() { }
+        bool Finished = false;
 
 
         // int 0,16; exp 0,21 
@@ -78,7 +78,7 @@ namespace Minesweeper_WF
         private static readonly int[,] defSettings = { { 9, 9, 10 }, { 16, 16, 40 }, { 30, 16, 99 } };
 
         //ClipGameMode
-        private static sbyte CM(sbyte mode) 
+        private static sbyte CM(sbyte mode)
         {
             return (sbyte)(mode < 0 ? 0 : (mode > 2 ? 2 : mode));
         }
@@ -135,38 +135,49 @@ namespace Minesweeper_WF
             {
                 for (int j = 0; j < fieldHeight; j++)
                 {
-                    bombField[i, j] = (bombCells.Contains((i, j)) ? -1 : GetNearBombAmount(i,j));
+                    bombField[i, j] = (bombCells.Contains((i, j)) ? -1 : GetNearBombAmount(i, j));
                 }
             }
         }
 
-        private int GetPartyStatus()
+        public int Status
         {
-            bool hasWon = true;
-            for (int i = 0; i < fieldWidth; i++)
+            get
             {
-                for (int j = 0; j < fieldHeight; j++)
+                bool hasWon = true;
+                for (int i = 0; i < fieldWidth; i++)
                 {
-                    if (exploredField[i,j] == -1)
+                    for (int j = 0; j < fieldHeight; j++)
                     {
-                        return -1;
+                        if (exploredField[i, j] == -5)
+                        {
+                            return -1;
+                        }
+                        if (exploredField[i, j] == -1)
+                        {
+                            return -1;
+                        }
+                        hasWon = hasWon && (((exploredField[i, j] < -1) && (bombField[i, j] == -1)) || (exploredField[i, j] >= 0));
                     }
-                    hasWon = hasWon && (((exploredField[i, j] < -1) && (bombField[i, j] == -1)) || (exploredField[i, j] >= 0));
                 }
+                return (hasWon ? 1 : 0);
             }
-            return (hasWon ? 1 : 0);
         }
 
         public void BFSOpenCell(int i, int j)
         {
-            if ((exploredField[i,j] == -3) || (exploredField[i, j] == -4))
+            if ((exploredField[i, j] == -3) || (exploredField[i, j] == -4))
             {
                 return;
             }
             var queueToOpen = new Queue<(int, int)>();
             exploredField[i, j] = bombField[i, j];
+            if (exploredField[i, j] == -1)
+            {   
+                ShowAllBombs();
+            }
             if (Changed != null) Changed();
-            if (exploredField[i,j] != 0) {return;}
+            if (exploredField[i, j] != 0) { return; }
             queueToOpen.Enqueue((i, j));
             while (queueToOpen.Count > 0)
             {
@@ -180,10 +191,10 @@ namespace Minesweeper_WF
                         {
                             continue;
                         }
-                        if (exploredField[x,y] < 0)
+                        if (exploredField[x, y] < 0)
                         {
                             exploredField[x, y] = bombField[x, y];
-                            if (exploredField[x,y] == 0)
+                            if (exploredField[x, y] == 0)
                             {
                                 queueToOpen.Enqueue((x, y));
                             }
@@ -194,9 +205,20 @@ namespace Minesweeper_WF
             if (Changed != null) Changed();
         }
 
+        public void ShowAllBombs()
+        {
+            foreach (var b in bombCells)
+            {
+                if (exploredField[b.Item1, b.Item2] == -2)
+                {
+                    exploredField[b.Item1, b.Item2] = -5;
+                }
+            }
+        }
+
         public void PutFlag(int i, int j)
         {
-            if (exploredField[i,j] < -1)
+            if (exploredField[i, j] < -1)
             {
                 if (exploredField[i, j] == -4)
                 {
@@ -216,7 +238,7 @@ namespace Minesweeper_WF
         }
         public void PutMark(int i, int j)
         {
-            if (exploredField[i,j] < -1)
+            if (exploredField[i, j] < -1)
             {
                 if (exploredField[i, j] == -3)
                 {
@@ -231,6 +253,9 @@ namespace Minesweeper_WF
             string cell;
             switch (st)
             {
+                case -5:
+                    cell = "+";
+                    break;
                 case -4:
                     cell = "?";
                     break;
@@ -249,8 +274,19 @@ namespace Minesweeper_WF
             }
             return cell;
         }
-
-        public string GetCellStatus(int i, int j)
+        public bool IsCellClosed(int i, int j)
+        {
+            return (exploredField[i, j] == -2);
+        }
+        public bool IsCellFlaged(int i, int j)
+        {
+            return (exploredField[i, j] == -3);
+        }
+        public bool IsCellMarked(int i, int j)
+        {
+            return (exploredField[i, j] == -4);
+        }
+        public string GetCellStr(int i, int j)
         {
             if ((i < 0 || i >= W) || (j < 0 || j >= H))
             {
@@ -266,21 +302,21 @@ namespace Minesweeper_WF
             {
                 for (int j = 0; j < fieldHeight; j++)
                 {
-                    Console.Write(GetCellStatus(i, j));
+                    Console.Write(GetCellStr(i, j));
                 }
                 Console.WriteLine();
             }
         }
-        public void PlayParty()
+        /*public void PlayParty()
         {
             ShowField();
 
-            while (GetPartyStatus() == 0)
+            while (this.Status == 0)
             {
                 user.MakeTurn(this);
                 ShowField();
             }
-            if (GetPartyStatus() == 1)
+            if (this.Status == 1)
             {
                 Console.WriteLine(":)");
             }
@@ -288,7 +324,7 @@ namespace Minesweeper_WF
             {
                 Console.WriteLine(":(");
             }
-        }
+        }*/
 
     }
 }

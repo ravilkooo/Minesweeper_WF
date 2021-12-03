@@ -153,6 +153,16 @@ namespace Minesweeper_WF.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap alive {
+            get {
+                object obj = ResourceManager.GetObject("alive", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap b {
             get {
                 object obj = ResourceManager.GetObject("b", resourceCulture);
@@ -213,9 +223,29 @@ namespace Minesweeper_WF.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap loose {
+            get {
+                object obj = ResourceManager.GetObject("loose", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap m {
             get {
                 object obj = ResourceManager.GetObject("m", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap won {
+            get {
+                object obj = ResourceManager.GetObject("won", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

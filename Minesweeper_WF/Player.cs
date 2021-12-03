@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Minesweeper_WF
+﻿namespace Minesweeper_WF
 {
     abstract class Player
     {

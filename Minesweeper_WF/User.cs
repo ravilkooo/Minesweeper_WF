@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Minesweeper_WF
 {
     class User : Player
     {
-        public override void MakeTurn(Party party) {
+        public override void MakeTurn(Party party)
+        {
             string s = Console.ReadLine();
             var args = s.Split(' ');
             string action = args[0];

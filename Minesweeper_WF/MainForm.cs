@@ -17,7 +17,10 @@ namespace Minesweeper_WF
             InitializeComponent();
             Model = new Party(0);
             AddView(panelView1);
-
+            AddView(flagLabelView1);
+            AddView(timerLabelView1);
+            flagLabelView1.UpdateView();
+            timerLabelView1.UpdateView();
             //cellsPanel добавление события к нему
             // При нажатии на Vuew должно вызваться собывтие, которое вызывает изменение модели
 
@@ -80,6 +83,11 @@ namespace Minesweeper_WF
         private void продолжитьИгруToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void TimerTick(object sender, EventArgs e)
+        {
+            timerLabelView1.UpdateView();
         }
     }
 }

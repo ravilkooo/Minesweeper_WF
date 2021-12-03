@@ -6,13 +6,13 @@ namespace Minesweeper_WF
 {
     class Party : IModel
     {
-        public DateTime date;
+        DateTime date;
         public sbyte mode;
         int fieldWidth;
         int fieldHeight;
-        public int flagCounter;
-        public int bombAmount;
-        public DateTime duration;
+        int flagCounter;
+        int bombAmount;
+        DateTime duration;
         public Bot bot;
         public User user;
         private int[,] bombField;
@@ -55,6 +55,9 @@ namespace Minesweeper_WF
         public Party(sbyte mode) : this(mode, defSettings[CM(mode),0], defSettings[CM(mode), 1], defSettings[CM(mode), 2]) {}
         public int W { get => fieldWidth; }
         public int H { get => fieldHeight; }
+        public int FlagCounter { get => flagCounter; }
+        public int BombAmount { get => bombAmount; }
+        public int Duration { get => (DateTime.Now).Second - date.Second; }
         public void RecoverField() { }
         public void GetMap() { }
         public void SaveParty() { }
@@ -162,6 +165,7 @@ namespace Minesweeper_WF
             }
             var queueToOpen = new Queue<(int, int)>();
             exploredField[i, j] = bombField[i, j];
+            if (Changed != null) Changed();
             if (exploredField[i,j] != 0) {return;}
             queueToOpen.Enqueue((i, j));
             while (queueToOpen.Count > 0)
@@ -199,6 +203,14 @@ namespace Minesweeper_WF
                     PutMark(i, j);
                 }
                 exploredField[i, j] = -5 - exploredField[i, j];
+                if (exploredField[i, j] == -3)
+                {
+                    flagCounter++;
+                }
+                else
+                {
+                    flagCounter--;
+                }
             }
             if (Changed != null) Changed();
         }

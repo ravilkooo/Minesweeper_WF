@@ -29,6 +29,7 @@ namespace Minesweeper_WF
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.новаяИграToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -51,9 +52,14 @@ namespace Minesweeper_WF
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panelView1 = new Minesweeper_WF.PanelView();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.flagLabelView1 = new Minesweeper_WF.FlagLabelView();
+            this.timerLabelView1 = new Minesweeper_WF.TimerLabelView();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
+            this.tableLayoutPanel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -194,9 +200,9 @@ namespace Minesweeper_WF
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.pictureBox1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.pictureBox1.Image = global::Minesweeper_WF.Properties.Resources.cl;
-            this.pictureBox1.Location = new System.Drawing.Point(338, 3);
+            this.pictureBox1.Location = new System.Drawing.Point(335, 6);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(32, 32);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -209,13 +215,13 @@ namespace Minesweeper_WF
             this.tableLayoutPanel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.tableLayoutPanel1.ColumnCount = 1;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Controls.Add(this.pictureBox1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.panelView1, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 0, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 28);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 39F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(708, 485);
             this.tableLayoutPanel1.TabIndex = 3;
@@ -224,11 +230,57 @@ namespace Minesweeper_WF
             // 
             this.panelView1.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.panelView1.AutoSize = true;
-            this.panelView1.Location = new System.Drawing.Point(354, 42);
+            this.panelView1.Location = new System.Drawing.Point(354, 53);
             this.panelView1.Model = null;
             this.panelView1.Name = "panelView1";
             this.panelView1.Size = new System.Drawing.Size(0, 0);
             this.panelView1.TabIndex = 2;
+            // 
+            // tableLayoutPanel2
+            // 
+            this.tableLayoutPanel2.ColumnCount = 3;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel2.Controls.Add(this.pictureBox1, 1, 0);
+            this.tableLayoutPanel2.Controls.Add(this.flagLabelView1, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.timerLabelView1, 2, 0);
+            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.RowCount = 1;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(702, 44);
+            this.tableLayoutPanel2.TabIndex = 3;
+            // 
+            // flagLabelView1
+            // 
+            this.flagLabelView1.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.flagLabelView1.AutoSize = true;
+            this.flagLabelView1.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.flagLabelView1.Location = new System.Drawing.Point(3, 3);
+            this.flagLabelView1.Model = null;
+            this.flagLabelView1.Name = "flagLabelView1";
+            this.flagLabelView1.Size = new System.Drawing.Size(199, 37);
+            this.flagLabelView1.TabIndex = 2;
+            this.flagLabelView1.Text = "flagLabelView1";
+            // 
+            // timerLabelView1
+            // 
+            this.timerLabelView1.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.timerLabelView1.AutoSize = true;
+            this.timerLabelView1.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.timerLabelView1.Location = new System.Drawing.Point(483, 3);
+            this.timerLabelView1.Model = null;
+            this.timerLabelView1.Name = "timerLabelView1";
+            this.timerLabelView1.Size = new System.Drawing.Size(216, 37);
+            this.timerLabelView1.TabIndex = 3;
+            this.timerLabelView1.Text = "timerLabelView1";
+            // 
+            // timer1
+            // 
+            this.timer1.Enabled = true;
+            this.timer1.Tick += new System.EventHandler(this.TimerTick);
             // 
             // MainForm
             // 
@@ -236,7 +288,7 @@ namespace Minesweeper_WF
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(175)))), ((int)(((byte)(175)))), ((int)(((byte)(175)))));
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.ClientSize = new System.Drawing.Size(708, 513);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.menuStrip1);
@@ -249,6 +301,8 @@ namespace Minesweeper_WF
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
+            this.tableLayoutPanel2.ResumeLayout(false);
+            this.tableLayoutPanel2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -277,6 +331,10 @@ namespace Minesweeper_WF
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private PanelView panelView1;
+        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
+        private FlagLabelView flagLabelView1;
+        private TimerLabelView timerLabelView1;
     }
 }
 

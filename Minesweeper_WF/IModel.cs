@@ -10,6 +10,9 @@ namespace Minesweeper_WF
     {
         public int W { get; }
         public int H { get; }
+        public int FlagCounter { get; }
+        public int BombAmount { get; }
+        public int Duration { get; }
         string GetCellStatus(int i, int j);
         public event Action Changed;
         public void BFSOpenCell(int i, int j);

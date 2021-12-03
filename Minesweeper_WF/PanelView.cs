@@ -72,7 +72,10 @@ namespace Minesweeper_WF
                 }
             }
         }
-
+        public void ClearEvents()
+        {
+            this.CellClicked = null;
+        }
         public PanelView()
         {
             this.DoubleBuffered = true;

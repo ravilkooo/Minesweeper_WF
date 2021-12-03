@@ -49,7 +49,10 @@ namespace Minesweeper_WF
             this.user = new User();
             this.bot = new Bot();
         }
-
+        public void ClearViews()
+        {
+            this.Changed = null;
+        }
         public Party(sbyte mode, int width, int height) : this(mode, width, height, CalcBombAmount(mode, width, height)) { }
         public Party(sbyte mode) : this(mode, defSettings[CM(mode), 0], defSettings[CM(mode), 1], defSettings[CM(mode), 2]) { }
         public int W { get => fieldWidth; }
@@ -233,8 +236,8 @@ namespace Minesweeper_WF
                 {
                     flagCounter--;
                 }
+                if (Changed != null) Changed();
             }
-            if (Changed != null) Changed();
         }
         public void PutMark(int i, int j)
         {
@@ -245,8 +248,8 @@ namespace Minesweeper_WF
                     PutFlag(i, j);
                 }
                 exploredField[i, j] = -6 - exploredField[i, j];
+                if (Changed != null) Changed();
             }
-            if (Changed != null) Changed();
         }
         string ConvertIntStatusToStr(int st)
         {

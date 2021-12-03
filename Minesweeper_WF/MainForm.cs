@@ -14,6 +14,8 @@ namespace Minesweeper_WF
         {
             Model = null;
             Model = new Party(mode, width, height);
+            Model.ClearViews();
+            panelView1.ClearEvents();
             panelView1.CellClicked += panelView1_CellAction;
             AddView(panelView1);
             AddView(flagLabelView1);
@@ -118,10 +120,9 @@ namespace Minesweeper_WF
         {
             int i = (((CellView)((PictureBox)sender)).I);
             int j = (((CellView)((PictureBox)sender)).J);
-            debug.Text = $"{Model.Status}";
             if (Model.Status == 0)
             {
-                debug.Text = $"{i}, {j}";
+                //debug.Text = $"{i}, {j}";
                 if (e.Button == System.Windows.Forms.MouseButtons.Left)
                 {
                     if (Model.IsCellClosed(i, j))
@@ -131,13 +132,19 @@ namespace Minesweeper_WF
                 }
                 else if (e.Button == System.Windows.Forms.MouseButtons.Right)
                 {
-                    if (Model.IsCellClosed(i, j))
+                    if (Model.IsCellFlaged(i,j))
                     {
-                        Model.PutFlag(i, j);
-                    }
-                    else
-                    {
+                        debug.Text += $"Mark";
                         Model.PutMark(i, j);
+                    }
+                    else if (Model.IsCellMarked(i, j))
+                    {
+                        debug.Text += $"Clear";
+                        Model.PutMark(i, j);
+                    } else if (Model.IsCellClosed(i, j))
+                    {
+                        debug.Text += $"Flag";
+                        Model.PutFlag(i, j);
                     }
                 }
             }

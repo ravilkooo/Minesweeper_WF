@@ -15,6 +15,7 @@ namespace Minesweeper_WF
         public bool IsCellMarked(int i, int j);
         string GetCellStr(int i, int j);
         public event Action Changed;
+        public void ClearViews();
         public void ShowAllBombs();
         public void BFSOpenCell(int i, int j);
         public void PutFlag(int i, int j);

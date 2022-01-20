@@ -45,9 +45,6 @@ namespace Minesweeper_WF
             this.x9ToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.x16ToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.x19ToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.пользовательскийToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.продолжитьИгруToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.рекордыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.выходToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panelView1 = new Minesweeper_WF.PanelView();
@@ -68,8 +65,6 @@ namespace Minesweeper_WF
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.новаяИграToolStripMenuItem,
-            this.продолжитьИгруToolStripMenuItem,
-            this.рекордыToolStripMenuItem,
             this.выходToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
@@ -83,8 +78,7 @@ namespace Minesweeper_WF
             this.новаяИграToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.новичокToolStripMenuItem,
             this.любительToolStripMenuItem,
-            this.профиToolStripMenuItem,
-            this.пользовательскийToolStripMenuItem});
+            this.профиToolStripMenuItem});
             this.новаяИграToolStripMenuItem.Name = "новаяИграToolStripMenuItem";
             this.новаяИграToolStripMenuItem.Size = new System.Drawing.Size(103, 24);
             this.новаяИграToolStripMenuItem.Text = "Новая игра";
@@ -96,27 +90,27 @@ namespace Minesweeper_WF
             this.x16ToolStripMenuItem,
             this.x19ToolStripMenuItem});
             this.новичокToolStripMenuItem.Name = "новичокToolStripMenuItem";
-            this.новичокToolStripMenuItem.Size = new System.Drawing.Size(222, 26);
+            this.новичокToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.новичокToolStripMenuItem.Text = "Новичок";
             // 
             // x9ToolStripMenuItem
             // 
             this.x9ToolStripMenuItem.Name = "x9ToolStripMenuItem";
-            this.x9ToolStripMenuItem.Size = new System.Drawing.Size(139, 26);
+            this.x9ToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.x9ToolStripMenuItem.Text = "9 x 9";
             this.x9ToolStripMenuItem.Click += new System.EventHandler(this.x9ToolStripMenuItem_Click);
             // 
             // x16ToolStripMenuItem
             // 
             this.x16ToolStripMenuItem.Name = "x16ToolStripMenuItem";
-            this.x16ToolStripMenuItem.Size = new System.Drawing.Size(139, 26);
+            this.x16ToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.x16ToolStripMenuItem.Text = "16 x 16";
             this.x16ToolStripMenuItem.Click += new System.EventHandler(this.x16ToolStripMenuItem_Click);
             // 
             // x19ToolStripMenuItem
             // 
             this.x19ToolStripMenuItem.Name = "x19ToolStripMenuItem";
-            this.x19ToolStripMenuItem.Size = new System.Drawing.Size(139, 26);
+            this.x19ToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.x19ToolStripMenuItem.Text = "30 x 16";
             this.x19ToolStripMenuItem.Click += new System.EventHandler(this.x19ToolStripMenuItem_Click);
             // 
@@ -127,7 +121,7 @@ namespace Minesweeper_WF
             this.x16ToolStripMenuItem1,
             this.x19ToolStripMenuItem1});
             this.любительToolStripMenuItem.Name = "любительToolStripMenuItem";
-            this.любительToolStripMenuItem.Size = new System.Drawing.Size(222, 26);
+            this.любительToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.любительToolStripMenuItem.Text = "Любитель";
             this.любительToolStripMenuItem.Click += new System.EventHandler(this.любительToolStripMenuItem_Click);
             // 
@@ -159,7 +153,7 @@ namespace Minesweeper_WF
             this.x16ToolStripMenuItem2,
             this.x19ToolStripMenuItem2});
             this.профиToolStripMenuItem.Name = "профиToolStripMenuItem";
-            this.профиToolStripMenuItem.Size = new System.Drawing.Size(222, 26);
+            this.профиToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.профиToolStripMenuItem.Text = "Профи";
             // 
             // x9ToolStripMenuItem2
@@ -183,30 +177,12 @@ namespace Minesweeper_WF
             this.x19ToolStripMenuItem2.Text = "30 x 16";
             this.x19ToolStripMenuItem2.Click += new System.EventHandler(this.x19ToolStripMenuItem2_Click);
             // 
-            // пользовательскийToolStripMenuItem
-            // 
-            this.пользовательскийToolStripMenuItem.Name = "пользовательскийToolStripMenuItem";
-            this.пользовательскийToolStripMenuItem.Size = new System.Drawing.Size(222, 26);
-            this.пользовательскийToolStripMenuItem.Text = "Пользовательский";
-            // 
-            // продолжитьИгруToolStripMenuItem
-            // 
-            this.продолжитьИгруToolStripMenuItem.Name = "продолжитьИгруToolStripMenuItem";
-            this.продолжитьИгруToolStripMenuItem.Size = new System.Drawing.Size(111, 24);
-            this.продолжитьИгруToolStripMenuItem.Text = "Продолжить";
-            this.продолжитьИгруToolStripMenuItem.Click += new System.EventHandler(this.продолжитьИгруToolStripMenuItem_Click);
-            // 
-            // рекордыToolStripMenuItem
-            // 
-            this.рекордыToolStripMenuItem.Name = "рекордыToolStripMenuItem";
-            this.рекордыToolStripMenuItem.Size = new System.Drawing.Size(83, 24);
-            this.рекордыToolStripMenuItem.Text = "Рекорды";
-            // 
             // выходToolStripMenuItem
             // 
             this.выходToolStripMenuItem.Name = "выходToolStripMenuItem";
             this.выходToolStripMenuItem.Size = new System.Drawing.Size(67, 24);
             this.выходToolStripMenuItem.Text = "Выход";
+            this.выходToolStripMenuItem.Click += new System.EventHandler(this.выходToolStripMenuItem_Click);
             // 
             // tableLayoutPanel1
             // 
@@ -347,9 +323,6 @@ namespace Minesweeper_WF
         private System.Windows.Forms.ToolStripMenuItem x9ToolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem x16ToolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem x19ToolStripMenuItem2;
-        private System.Windows.Forms.ToolStripMenuItem пользовательскийToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem продолжитьИгруToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem рекордыToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem выходToolStripMenuItem;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private PanelView panelView1;

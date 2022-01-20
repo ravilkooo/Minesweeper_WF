@@ -154,5 +154,10 @@ namespace Minesweeper_WF
         {
 
         }
+
+        private void выходToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

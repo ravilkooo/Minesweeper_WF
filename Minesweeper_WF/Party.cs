@@ -12,8 +12,8 @@ namespace Minesweeper_WF
         int flagCounter;
         int bombAmount;
         DateTime duration;
-        public Bot bot;
-        public User user;
+        //public Bot bot;
+        //public User user;
         private int[,] bombField;
         internal int[,] exploredField;
         //private List<(char, int, int)> history;
@@ -46,8 +46,8 @@ namespace Minesweeper_WF
             FillField();
 
             //Players
-            this.user = new User();
-            this.bot = new Bot();
+            //this.user = new User();
+            //this.bot = new Bot();
         }
         public void ClearViews()
         {
@@ -60,9 +60,9 @@ namespace Minesweeper_WF
         public int FlagCounter { get => flagCounter; }
         public int BombAmount { get => bombAmount; }
         public int Duration { get => (int) ((DateTime.Now).Subtract(date)).TotalSeconds ; }
-        public void RecoverField() { }
+        //public void RecoverField() { }
         public void GetMap() { }
-        public void SaveParty() { }
+        //public void SaveParty() { }
         bool Finished = false;
 
 
@@ -298,7 +298,7 @@ namespace Minesweeper_WF
             return ConvertIntStatusToStr(exploredField[i, j]);
         }
 
-        public void ShowField()
+        /*public void ShowField()
         {
             Console.WriteLine();
             for (int i = 0; i < fieldWidth; i++)
@@ -309,7 +309,7 @@ namespace Minesweeper_WF
                 }
                 Console.WriteLine();
             }
-        }
+        }*/
         /*public void PlayParty()
         {
             ShowField();
